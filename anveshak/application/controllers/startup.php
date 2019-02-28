@@ -48,6 +48,8 @@ class Startup extends MY_controller
 		$this->drawHeader('Startup Home','Feed');
 		$this->drawFooter();
 	}
+
+	
 	
 }
 #################################### END OF STARTUP CLASS  ################################

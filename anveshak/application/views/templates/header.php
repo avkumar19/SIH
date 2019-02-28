@@ -67,52 +67,51 @@
 
                     <ul class="sidebar-menu">
                         <li><a href="#"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
-                    <?if($type=='startup'||$type="corp"){?>
+                        <!-- Put the menu which is comment to both corporate as well as startup -->
                         <li class="treeview ">
                             <a href="#">
-                                <i class="fa fa-angle-right pull-right"></i>Admin
+                                <i class="fa fa-angle-right pull-right"></i>Profile
                             </a>
                             <ul class="treeview-menu">
-                                <li class="treeview">
-                                    <a href="#">
-                                       <i class="fa fa-angle-right pull-right"></i> Manage user
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/create_user')?>">
-                                               Add user
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/change_password')?>">
-                                              Change Password
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/view_user')?>">
-                                              View user
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_receivers')?>">
-                                             Manage SMS Contact
-                                            </a>
-                                            
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li >
-                                    <a href="<?=site_url('device/manage_device')?>">
-                                       Manage Device
+                                     <a href="<?=site_url('profile/view_profile')?>">
+                                        View Your Profile
+                                    </a>
+                                </li>
+                                   
+                                <li>
+                                    <a href="<?=site_url('profile/update_vision')?>">
+                                       Update Vision
                                     </a>
                                     
                                 </li>
+                                <li>
+                                    <a href="<?=site_url('profile/update_contact_detail')?>">
+                                      Update Contact Detail
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="<?=site_url('profile/change_username')?>">
+                                      Change Username
+                                    </a>
+                                    
+                                </li>
+                                        
                             </ul>
                         </li>
+                    <?if($type=='startup'){?>
+                        
+
+                        <!-- Put startup menu here -->
                     <?
+                    }
+                    else if($type=="corp")
+                    {
+                    ?>
+                            
+                            <!-- put corporate menu here -->
+                        <?
                     }
                    
 
