@@ -31,10 +31,9 @@ class Profile extends MY_controller
 
 	function __construct()
 	{
-		parent::__construct(array('startup'));
+		parent::__construct(array('startup','corp'));
 		$this->load->model('profile_model','profile');
 	}
-
 
 
 
@@ -56,6 +55,8 @@ class Profile extends MY_controller
 	{
 		$type=$this->session->userdata('type');
 		$id=$this->session->userdata('id');
+		print($id);
+		//print($type);
 		$basic=$this->profile->get_basic_detail($type,$id);
 		$contact=$this->profile->get_contact_detail($type,$id);
 		$vision=$this->profile->get_vision($type,$id);
