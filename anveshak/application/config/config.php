@@ -15,7 +15,7 @@
 |
 */
 
-$config['base_url']	= 'http://localhost/SIH/anveshak/';
+$config['base_url']	= 'http://172.24.254.215/SIH/anveshak/';
 
 /*
 |--------------------------------------------------------------------------

@@ -39,8 +39,7 @@ class Login extends CI_Controller {
 	function __construct()
 	{   
 		parent::__construct();
-		$this->addJS('login.js');
-		$this->addCSS('login.css');
+		
 	}
 
 
@@ -77,9 +76,6 @@ class Login extends CI_Controller {
 					  "css" => $this->_css,
 					  'error_code'=>$error_code
 					  );
-    	$this->load->view('templates/header_assets',$data);
-
-    	// load login form
     	$this->load->view('login',$data);
 	}
 

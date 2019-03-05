@@ -1,141 +1,182 @@
-    <?php $ui = new UI(); ?>
-    <body class="skin-blue">
-        <header class="header">
-            <a href="<?= site_url("") ?>" class="logo">
-                LOGO
-            </a>
+<body>
 
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span><?= $this->session->userdata('name') ?> <i class="caret"></i></span>
+
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+               
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    </li>
+                    <h3 class="menu-title"><?= $this->session->userdata('name') ?></h3><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Profile</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i> <a href="<?=site_url('profile/view_profile')?>">
+                                        View Your Profile
+                                    </a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i>
+                                <a href="<?=site_url('profile/update_vision')?>">
+                                       Update Vision
+                                </a>
+                            </li>
+                            <li><i class="fa fa-bars"></i>
+                                <a href="<?=site_url('profile/update_contact_detail')?>">
+                                      Update Contact Detail
+                                 </a>
+                            </li>
+                            <li><i class="fa fa-share-square-o"></i>
+                                <a href="<?=site_url('profile/change_username')?>">
+                                      Change Username
+                                </a>
+                            </li>
+                            <li><i class="fa fa-id-card-o"></i>
+                                <a href="<?=site_url('profile/add_verticals ')?>">
+                                      Add Verticals
+                                    </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    
+                    <li class="active">
+                        <a href="<?=base_url('IdeaPitch')?>"> <i class="menu-icon fa fa-dashboard"></i>Pitch And Snitch </a>
+                    </li>
+                    <li class="active">
+                        <a href="<?=base_url('ShoutOut')?>"> <i class="menu-icon fa fa-dashboard"></i>Shoutout</a>
+                    </li>
+                    <li class="active">
+                        <a href="<?=base_url('community')?>"> <i class="menu-icon fa fa-dashboard"></i>Community Support</a>
+                    </li>
+                    <?if($type=='corp'){?>
+
+
+                    <li class="active">
+                        <a href="<?=site_url('profile/find_recommendation')?>"> <i class="menu-icon fa fa-dashboard"></i>Your Recommendation</a>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Manage Project</a>
+                        <ul class="sub-menu children dropdown-menu">
+                           
+                            <li><i class="fa fa-id-badge"></i>
+                                <a href="<?=site_url('profile/assign_project')?>">
+                                       Request Project
+                                </a>
+                            </li>
+                            <li><i class="fa fa-bars"></i>
+                                <a href="<?=site_url('profile/view_status')?>">
+                                      View Running Project status
+                                 </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="<?=site_url('corporate/post_problem')?>"> <i class="menu-icon fa fa-dashboard"></i>Post Problem</a>
+                    </li>
+                    <?}else{?>
+
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Manage Projects</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i> <a href="<?=site_url('profile/requested')?>">
+                                        See Requested Project
+                                    </a>
+                            </li>
+                            <li><i class="fa fa-id-badge"></i>
+                                <a href="<?=site_url('profile/change_status')?>">
+                                       Update Status
+                                </a>
+                            </li>
+                            <li><i class="fa fa-bars"></i>
+                                <a href="<?=site_url('profile/view_status')?>">
+                                      View Running project Status
+                                 </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="<?=site_url('startup/view_problem_statement')?>"> <i class="menu-icon fa fa-dashboard"></i>View problem</a>
+                    </li>
+                    <?}?>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <div class="header-left">
+                        <div class="dropdown for-notification">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">5</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">You have 3 Notification</p>
+                                <a class="dropdown-item media bg-flat-color-1" href="#">
+                                <i class="fa fa-check"></i>
+                                <p>Server #1 overloaded.</p>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                       <p>
-                                            <?= $this->session->userdata('name') ?>
-                                            <small>
-                                                <?php
-                                               	echo "LOGO"; 
-                                            // The above appears in Change Password BOX on right corner
-                                               ?>
-                                           </small>
-                                        </p>
-                                 </li>
-                           <!-- Menu Footer-->
-                               <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="<?= site_url('change_password') ?>" class="btn btn-default btn-flat">Change Password</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="<?= site_url('login/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                             </ul>
-                         </li>
-                    </ul>
+                                <a class="dropdown-item media bg-flat-color-4" href="#">
+                                <i class="fa fa-info"></i>
+                                <p>Server #2 overloaded.</p>
+                            </a>
+                                <a class="dropdown-item media bg-flat-color-5" href="#">
+                                <i class="fa fa-warning"></i>
+                                <p>Server #3 overloaded.</p>
+                            </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
 
-                        <!-- Sidebar user panel The user image was not displaying due case issue of folder name hence all converted to lower case as in line 27-28 above -->
-                        <div class="pull-left info">
-                            <p><?= $this->session->userdata('name'); ?></p>
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="<?=base_url()?>assets/dashboard/images/admin.jpg" alt="User Avatar">
+                        </a>
 
-                            <a href="#"><i class="glyphicon glyphicon-user"></i> <?= $this->session->userdata('id'); ?></a>
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Change Password</a>
+
+                            <a href="<?= site_url('login/logout') ?>" ><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
 
-                    <ul class="sidebar-menu">
-                        <li><a href="#"><i class="fa fa-book"></i> <span>Dashboard</span></a></li>
-                    <?if($type=='startup'||$type="corp"){?>
-                        <li class="treeview ">
-                            <a href="#">
-                                <i class="fa fa-angle-right pull-right"></i>Admin
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="treeview">
-                                    <a href="#">
-                                       <i class="fa fa-angle-right pull-right"></i> Manage user
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/create_user')?>">
-                                               Add user
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/change_password')?>">
-                                              Change Password
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_users/view_user')?>">
-                                              View user
-                                            </a>
-                                            
-                                        </li>
-                                        <li>
-                                            <a href="<?=site_url('users/manage_receivers')?>">
-                                             Manage SMS Contact
-                                            </a>
-                                            
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li >
-                                    <a href="<?=site_url('device/manage_device')?>">
-                                       Manage Device
-                                    </a>
-                                    
-                                </li>
-                            </ul>
-                        </li>
-                    <?
-                    }
                    
+                </div>
+            </div>
 
-                    ?>
-                    </ul>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
+        </header><!-- /header -->
+        <!-- Header-->
 
-
-
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        <?= $title ?>
-                        <small><?= $subtitle ?></small>
-                    </h1>
-                </section>
-
-                <!-- Main content -->
-                <section class="content">
+       <section class="content" id="startup_back" style="min-height:400px;">
 
                     <div class="flash-data">
                         <?php
@@ -150,3 +191,4 @@
                             $ui->alert()->uiType("warning")->desc($this->session->flashdata('flashWarning'))->show();
                         ?>
                     </div>
+        
