@@ -6,3 +6,8 @@
 4. Go through [this](https://stackoverflow.com/questions/2765421/how-do-i-push-a-new-local-branch-to-a-remote-git-repository-and-track-it-too) to understand how to push your local branch.
 5. After following all the above steps submit your pull request.
 
+# Prototype explanation
+![](https://github.com/avkumar19/SIH/blob/master/recommander_api/Screenshot%202020-11-07%20at%201.13.16%20PM.png)
+![](https://github.com/avkumar19/SIH/blob/master/recommander_api/Screenshot%202020-11-07%20at%201.13.25%20PM.png)
+![](https://github.com/avkumar19/SIH/blob/master/recommander_api/Screenshot%202020-11-07%20at%201.13.36%20PM.png)
+![](https://github.com/avkumar19/SIH/blob/master/recommander_api/Screenshot%202020-11-07%20at%201.13.42%20PM.png)
