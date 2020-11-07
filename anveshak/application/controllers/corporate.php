@@ -31,6 +31,8 @@ class Corporate extends MY_controller
 	function __construct()
 	{
 		parent::__construct(array('corp'));
+		$this->load->model('basic_model','basic');
+		$this->load->model('corp_model','corp');
 	}
 
 
@@ -43,6 +45,35 @@ class Corporate extends MY_controller
 	{
 		$this->drawHeader('Corporate Home','Feed');
 		$this->drawFooter();
+	}
+
+	public function post_problem()
+	{
+
+		$this->drawHeader('Post Your Problem');
+		$tags=$this->basic->get_all_data('vertical');
+		$this->load->view('post_problem',array('tags'=>$tags));
+		$this->drawFooter();
+	}
+	public function submit_problem()
+	{
+		$id=$this->session->userdata('id');
+		$tags=$this->input->post('tags');
+		$prob=$this->input->post('problem');
+		   
+
+		$res=$this->corp->insert_problem($tags,$prob);
+		if($res)
+		{
+			$this->session->set_flashdata('flashSuccess','Your Problem Posted Successfully'); 
+			
+		}
+		else
+		{
+			$this->session->set_flashdata('flashError','Error occured while Posting Your Problem');
+		}
+		redirect(site_url('corporate'));
+		
 	}
 	
 }

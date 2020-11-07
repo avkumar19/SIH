@@ -1,4 +1,5 @@
-<?php
+
++<?php
  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
@@ -27,7 +28,7 @@ class Home extends CI_Controller{
 
 	var $_js = '';
 	var $_css = '';
-
+    var $_login;
 
 
 	/**
@@ -38,8 +39,13 @@ class Home extends CI_Controller{
 	function __construct()
 	{   
 		parent::__construct();
-		$this->addJS('home.js');
-		$this->addCSS('home.css');
+		
+		$this->load->model('basic_model','basic');
+		$this->load->model('profile_model','profile');
+		$this->login='false';
+		if($this->session->userdata('isLoggedIn'))
+			$this->login='true';
+
 	}
 
 
@@ -53,10 +59,18 @@ class Home extends CI_Controller{
 	public function index()
 	{
            
-		if($this->session->userdata('isLoggedIn'))
-			$this->showpage();
-		else
-			$this->homepage();
+		$this->addJS('home.js');
+		$this->addCSS('home.css');
+		$verticals=$this->basic->get_all_data('vertical');
+				$data = array(
+					  "title" => '',
+					  "subtitle" => '',
+					  "javascript" => $this->_js,
+					  "css" => $this->_css,
+					  "login"=>$this->login,
+					  "verticals"=>$verticals
+					  );
+		$this->load->view('home',$data);
 	
     }
 
@@ -68,7 +82,7 @@ class Home extends CI_Controller{
      * @param none
      * @return none
      */
-	private function showpage()
+	public function dashboard()
 	{
 		// if startup session is setup open startup dashboard 
          if($this->session->userdata('type')=='startup')
@@ -90,29 +104,40 @@ class Home extends CI_Controller{
          }
 	}
 
-
-
-	 /**
-     * load the default home page
-     * @param none
-     * @return none
-     */
-
-	private function homepage()
+	public function profile($id='',$type='')
 	{
-		$data = array(
-					  "title" => '',
-					  "subtitle" => '',
+		$basic=$this->profile->get_basic_detail($type,$id);
+		$contact=$this->profile->get_contact_detail($type,$id);
+		$vision=$this->profile->get_vision($type,$id);
+		$tech=$this->profile->get_tech($type,$id);
+		$verticals=$this->profile->get_verticals($type,$id);
+		$data=[
+			'basic'=>$basic,
+			'contact'=>$contact,
+			'vision'=>$vision,
+			'tech'=>$tech,
+			'verticals'=>$verticals,
+			'type'=>$type,
+			"login"=>$this->login
+		];
+		if($this->login=='true')
+		{
+			$data['type']='corp';
+		}
+		
+	$this->addCSS('profile/freelancer.css');
+		//$this->addCSS('profile/freelancer.min.css');
+		$this->addCSS('profile/freelancer.min.css');
+		$this->addJS('profile/freelancer.min.js');
+		$this->addJS('profile/jqBootstrapValidation.js');
+		$this->addJS('profile/contact_me.js');		$data2= array(
 					  "javascript" => $this->_js,
 					  "css" => $this->_css,
 					  );
+		$this->load->view('templates/header_assets',$data2);
+		$this->load->view('public_profile',$data);
 
-	    $this->load->view('templates/header_assets',$data);
-		$this->load->view('home');
 	}
-
-
-
 
 	/**
     * utility function to add a js file

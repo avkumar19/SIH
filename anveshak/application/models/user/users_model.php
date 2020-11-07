@@ -50,7 +50,8 @@ class Users_model extends CI_Model
 			
 			
 			//Comment to remove enc >>>>> also comment line marked by *************
-     		$password = $this->authorization->encode_password($pass, $row->created_date);
+     		//$password = $this->authorization->encode_password($pass, $row->created_date);
+     		$password=$pass;
 
      		
 		
@@ -111,62 +112,74 @@ class Users_model extends CI_Model
             
     }
 	
-	private function set_session($user_id, $password, $data,$type)
-	{
-		$this->session->set_userdata( array( 'id'=>$user_id,	
-											'login_string'=> hash('sha512', $password . $_SERVER['HTTP_USER_AGENT']),
-											)
-									);
-		if($data)
-		{
-			$last_login = $this->db->query("SELECT min(t.time) as lastLogin
-                                           FROM (SELECT `time`
-                                                     FROM user_login_attempts
-                                                     WHERE id = '$user_id'
-                                                     ORDER BY `time` DESC
-                                                     LIMIT 2 ) as t")->row()->lastLogin;
-			if($type=='startup'){
-
-			$this->session->set_userdata( array
-											(
-												'id'=> $data->startup_id,
-												'username'=>$user_id,
-												'name' =>ucwords(
-												  $data->startup_name != ''? ' '.$data->startup_name: ''
-												),
-
- 												'last_login'  => $last_login,
-												'created_date' 	=> $data->created_date,
-												'type'	=> $type,
-												'isLoggedIn'=>true
-											)
+		private function set_session($user_id, $password, $data,$type)
+		{	
+			$this->load->library('nativesession');	
+			$this->session->set_userdata( array( 'id'=>$user_id,	
+												'login_string'=> hash('sha512', $password . $_SERVER['HTTP_USER_AGENT']),
+												)
 										);
+			if($data)
+			{
+				$last_login = $this->db->query("SELECT min(t.time) as lastLogin
+																						 FROM (SELECT `time`
+																											 FROM user_login_attempts
+																											 WHERE id = '$user_id'
+																											 ORDER BY `time` DESC
+																											 LIMIT 2 ) as t")->row()->lastLogin;
+				if($type=='startup'){
+	
+				$this->session->set_userdata( array
+												(
+													'id'=> $data->startup_id,
+													'username'=>$user_id,
+													'name' =>ucwords(
+														$data->startup_name != ''? ' '.$data->startup_name: ''
+													),
+	
+													 'last_login'  => $last_login,
+													'created_date' 	=> $data->created_date,
+													'type'	=> $type,
+													'isLoggedIn'=>true
+												)
+											);
+	
+				 $this->nativesession->set('id',$data->startup_id);
+				 $this->nativesession->set('username', $user_id);
+				 $this->nativesession->set('name',ucwords($data->startup_name != ''? ' '.$data->startup_name: ''));
+				 $this->nativesession->set('type', $type);
+				 $this->nativesession->set('isLoggedIn', true);
+				
+				}
+				else if($type=='corp'){
+					$this->session->set_userdata( array
+												(
+													'id'=> $data->corp_id,
+													'username'=>$user_id,
+													'name' =>ucwords(
+														$data->corp_name != ''? ' '.$data->corp_name: ''
+													),
+	
+													 'last_login'  => $last_login,
+													'created_date' 	=> $data->created_date,
+													'type'	=> $type,
+													'isLoggedIn'=>true
+												)
+											);
+					$this->nativesession->set('id',$data->corp_id);
+				 $this->nativesession->set('username', $user_id);
+				 $this->nativesession->set('name',ucwords($data->corp_name != ''? ' '.$data->corp_name: ''));
+				 $this->nativesession->set('type', $type);
+				 $this->nativesession->set('isLoggedIn', true);
+	
+	
+				
+				}
 			
-		  }
-		  else if($type=='corp'){
-		  	$this->session->set_userdata( array
-											(
-												'id'=> $data->corp_id,
-												'username'=>$user_id,
-												'name' =>ucwords(
-												  $data->corp_name != ''? ' '.$data->corp_name: ''
-												),
-
- 												'last_login'  => $last_login,
-												'created_date' 	=> $data->created_date,
-												'type'	=> $type,
-												'isLoggedIn'=>true
-											)
-										);
-
-		  
-		  }
-		
+			}
+	
 		}
-
-	}
-
-
+	
 
 
 	function change_password($old_pass , $new_pass)
